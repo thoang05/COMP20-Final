@@ -1,0 +1,37 @@
+{
+  "name": "index.js",
+  "version": "0.3.0",
+  "description": "Web App Using NodeJS/Heroku",
+  "engines": {
+    "node": "12.x"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "mongodb": "^3.3.4",
+    "mongoose": "^5.7.12"
+  },
+  "devDependencies": {
+    "@types/convict": "^4.2.1",
+    "@types/dotenv": "^8.2.0",
+    "convict": "^5.2.0",
+    "dotenv": "^8.2.0",
+    "request": "^2.81.0",
+    "tape": "^4.7.0",
+    "val-loader": "^2.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
+}
