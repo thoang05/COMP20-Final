@@ -2,8 +2,8 @@
 var http = require('http');
 var url = require('url');
 var MongoClient = require('mongodb').MongoClient;
-var MongoUrl = "mongodb+srv://comp20Final:comp20Final@cluster0-2wpep.mongodb.net/test?retryWrites=true&w=majority";
-
+var MongoUrl = "mongodb+srv://xmojic01:<password>@tuftscomp20-38b0t.mongodb.net/test?retryWrites=true&w=majority";
+var port = process.env.PORT || 5000
 
 //Create Server
 http.createServer(function(req, res) {
@@ -20,8 +20,8 @@ var queryData = url.parse(req.url, true).query;
 			}
 		
 //Access DB
-		var dbo = db.db("Final");
-		var coll = dbo.collection("Users");
+		var dbo = db.db("chefs-picks");
+		var coll = dbo.collection("users");
 			
 //Find Statement: Check if user exists 
 
@@ -32,9 +32,9 @@ var queryData = url.parse(req.url, true).query;
 		var recipeData = {"recipeName": queryData.recipe, "imageLink": queryData.imgLink};
 
 		var existCheck = false;
-		for(var i=0; i<items.length; i++){
+		for (i = 0; i < items.length; i++) {
 	
-			if(items[i].username == userData){
+			if (items[i].username == userData) {
 				console.log("User already exists!")
 				existCheck = true;
 				break;
@@ -42,28 +42,28 @@ var queryData = url.parse(req.url, true).query;
 				console.log("New user!");
 			}
 		}
-			if(existCheck == true){
-				console.log("Returning...");
-				coll.update(
-					{"username": userData},
-					{$push: {recipes: recipeData}}
-				)
-			} else if(existCheck == false){
-				console.log("Creating new uswer...");
-				var enterData = {"username" : userData, "recipes": [recipeData]};
-				coll.insertOne(enterData, function(err,res){
-					if(err){
-						console.log("Data Entry Error!")
-						return;
-					} 
-				}) // End Insert	
-			}
+		if (existCheck == true){
+			console.log("Returning...");
+			coll.update(
+				{"username": userData},
+				{$push: {recipes: recipeData}}
+			)
+		} else if (existCheck == false) {
+			console.log("Creating new uswer...");
+			var enterData = {"username" : userData, "recipes": [recipeData]};
+			coll.insertOne(enterData, function(err,res){
+				if (err) {
+					console.log("Data Entry Error!")
+					return;
+				} 
+			}) // End Insert	
+		}
 			
 			
 		}); // End Find Statement
         }) // End Mongo Connection
     } // End if GET statement
 
-}).listen(8080);
+}).listen(port);
 
 
